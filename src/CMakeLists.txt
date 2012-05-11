@@ -9,6 +9,7 @@ else()
   set( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/${CMAKE_BUILD_TYPE} )
 endif()
 
+add_subdirectory( ptrackData )
 add_subdirectory( ptrackUi )
 
 file( GLOB srcFiles *.cpp )
