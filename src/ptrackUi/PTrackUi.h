@@ -7,6 +7,8 @@
 
 #include <boost/scoped_ptr.hpp>
 
+class QCloseEvent;
+
 
 namespace ptui {
 
@@ -16,6 +18,8 @@ class PTUI_API PTrackUi : public QMainWindow
 
 public:
   PTrackUi();
+
+  void closeEvent( QCloseEvent* e );
 
 protected Q_SLOTS:
   void openPreferences();
