@@ -3,10 +3,10 @@ project( ptrack )
 cmake_minimum_required( VERSION 2.6 )
 
 if( UNIX OR MINGW )
-  set( LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib )
+  set( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
 else()
-  set( EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin/${CMAKE_BUILD_TYPE} )
-  set( LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin/${CMAKE_BUILD_TYPE} )
+  set( CMAKE_EXECUTABLE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/${CMAKE_BUILD_TYPE} )
+  set( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/${CMAKE_BUILD_TYPE} )
 endif()
 
 add_subdirectory( ptrackUi )
@@ -20,6 +20,7 @@ include( ${QT_USE_FILE} )
 
 include_directories(
   ${CMAKE_SOURCE_DIR}
+  ${CMAKE_BINARY_DIR}
   ${QT_INCLUDE_DIR}
 )
 

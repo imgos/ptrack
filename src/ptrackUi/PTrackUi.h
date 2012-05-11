@@ -3,12 +3,12 @@
 
 #include <ptrackUi/PTrackUiMacros.h>
 
-#include <QMainWindow>
+#include <ptrackUi/ui_PTrackUiBase.h>
 
 #include <boost/scoped_ptr.hpp>
 
-namespace Ui { class PTrackUiBase; }
 
+namespace ptui {
 
 class PTUI_API PTrackUi : public QMainWindow
 {
@@ -17,8 +17,13 @@ class PTUI_API PTrackUi : public QMainWindow
 public:
   PTrackUi();
 
+protected Q_SLOTS:
+  void openPreferences();
+
 private:
   boost::scoped_ptr< Ui::PTrackUiBase > mUi;
 };
+
+} //namespace ptui
 
 #endif

@@ -4,16 +4,16 @@ file( GLOB headerFiles *.h )
 file( GLOB sourceFiles *.cpp )
 file( GLOB uiFiles *.ui )
 
+add_definitions(
+  -DBUILDING_DLL
+)
+
 find_package( Boost REQUIRED )
 
 set( QT_USE_QT3SUPPORT FALSE )
 find_package( Qt4 REQUIRED )
 
 include( ${QT_USE_FILE} )
-
-add_definitions(
-  -DBUILDING_DLL
-)
 
 QT4_WRAP_UI( uicHeaders ${uiFiles} )
 QT4_WRAP_CPP( mocSources ${headerFiles} )
