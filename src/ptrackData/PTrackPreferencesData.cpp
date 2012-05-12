@@ -9,6 +9,7 @@ const QString PTrackPreferencesData::kAppName = "ptrack";
 
 QByteArray PTrackPreferencesData::mWindowGeometry;
 QByteArray PTrackPreferencesData::mWindowState;
+QByteArray PTrackPreferencesData::mSplitterState;
 
 PTrackPreferencesData* PTrackPreferencesData::mInstance;
 
@@ -37,6 +38,7 @@ void PTrackPreferencesData::save()
 
   s.setValue( "ptrackui/windowgeometry", mWindowGeometry );
   s.setValue( "ptrackui/windowstate", mWindowState );
+  s.setValue( "ptrackui/splitterstate", mSplitterState );
 }
 
 /*
@@ -50,6 +52,7 @@ void PTrackPreferencesData::create()
 
   mWindowGeometry = s.value( "ptrackui/windowgeometry" ).toByteArray();
   mWindowState = s.value( "ptrackui/windowstate" ).toByteArray();
+  mSplitterState = s.value( "ptrackui/splitterstate" ).toByteArray();
 }
 
 /*
@@ -94,6 +97,22 @@ QByteArray PTrackPreferencesData::windowState()
 void PTrackPreferencesData::setWindowState( QByteArray s )
 {
   mWindowState = s;
+}
+
+/*
+ * splitterState
+ */
+QByteArray PTrackPreferencesData::splitterState()
+{
+  return mSplitterState;
+}
+
+/*
+ * setWindowState
+ */
+void PTrackPreferencesData::setSplitterState( QByteArray s )
+{
+  mSplitterState = s;
 }
 
 } // namespace ptdata

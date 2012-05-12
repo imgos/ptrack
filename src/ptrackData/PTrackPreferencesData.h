@@ -22,6 +22,9 @@ public:
   QByteArray windowState();
   void setWindowState( QByteArray s );
 
+  QByteArray splitterState();
+  void setSplitterState( QByteArray s );
+
 protected:
   static void create();
 
@@ -34,6 +37,7 @@ private:
 
   static QByteArray mWindowGeometry;
   static QByteArray mWindowState;
+  static QByteArray mSplitterState;
 
   static PTrackPreferencesData* mInstance;
 };

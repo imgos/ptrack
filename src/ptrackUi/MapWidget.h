@@ -9,9 +9,10 @@ namespace ptui {
 
 class PTUI_API MapWidget : public QWebView
 {
+  Q_OBJECT
+
 public:
   MapWidget( QWidget* parent = 0 );
-
 
 };
 

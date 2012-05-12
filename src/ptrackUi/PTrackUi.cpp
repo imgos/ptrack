@@ -24,6 +24,7 @@ PTrackUi::PTrackUi()
   // restore window size, position, state
   restoreGeometry( ptdata::PTrackPreferencesData::instance()->windowGeometry() );
   restoreState( ptdata::PTrackPreferencesData::instance()->windowState() );
+  mUi->mSplitter->restoreState( ptdata::PTrackPreferencesData::instance()->splitterState() );
 }
 
 /*
@@ -34,6 +35,7 @@ void PTrackUi::closeEvent( QCloseEvent* e )
   // save settings
   ptdata::PTrackPreferencesData::instance()->setWindowGeometry( saveGeometry() );
   ptdata::PTrackPreferencesData::instance()->setWindowState( saveState() );
+  ptdata::PTrackPreferencesData::instance()->setSplitterState( mUi->mSplitter->saveState() );
   ptdata::PTrackPreferencesData::instance()->save();
 }
 
