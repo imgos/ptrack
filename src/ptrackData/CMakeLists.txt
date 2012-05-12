@@ -21,5 +21,8 @@ include_directories(
 
 add_library( ${PROJECT_NAME} SHARED
   ${sourceFiles}
+)
+
+target_link_libraries( ${PROJECT_NAME}
   ${QT_LIBRARIES}
 )
