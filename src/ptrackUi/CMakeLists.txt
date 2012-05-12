@@ -11,6 +11,7 @@ add_definitions(
 find_package( Boost REQUIRED )
 
 set( QT_USE_QT3SUPPORT FALSE )
+set( QT_USE_WEBKIT TRUE )
 find_package( Qt4 REQUIRED )
 
 include( ${QT_USE_FILE} )
@@ -34,4 +35,5 @@ add_library( ${PROJECT_NAME} SHARED
 target_link_libraries( ${PROJECT_NAME}
   ptrackData
   ${QT_LIBRARIES}
+  ${QT_QTWEBKIT_LIBRARY}
 )
