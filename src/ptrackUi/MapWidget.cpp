@@ -54,8 +54,11 @@ void MapWidget::triggerInitMap()
   qDebug() << "triggerInitMap()";
 
   QString code = "init(37.6970, -91.8096)";
-  QWebFrame *frame = page()->mainFrame();
+  QWebFrame* frame = page()->mainFrame();
   frame->evaluateJavaScript( code );
+
+  // default start of map is just centered on USA
+  setBounds( 24.52, -124.77, 49.38, -66.95 );
 }
 
 /*
@@ -63,17 +66,23 @@ void MapWidget::triggerInitMap()
  */
 void MapWidget::setCenter( double latitude, double longitude )
 {
-  QString code = "map.set_center(new google.maps.LatLng(%1, %2));";
-  QWebFrame *frame = page()->mainFrame();
+  QString code = "map.setCenter( new google.maps.LatLng( %1, %2 ) );";
+  QWebFrame* frame = page()->mainFrame();
   frame->evaluateJavaScript( code.arg( latitude ).arg( longitude ) );
 }
 
 /*
  * setBounds
  */
-void MapWidget::setBounds( double latSW, double longSW, double latNE, double lonNE )
+void MapWidget::setBounds( double latSW, double lonSW, double latNE, double lonNE )
 {
-
+  QStringList code = QStringList()
+                     << "var bounds = new google.maps.LatLngBounds("
+                     << "               new google.maps.LatLng( %1, %2 ),"
+                     << "               new google.maps.LatLng( %3, %4 ) );"
+                     << "map.fitBounds( bounds );";
+  QWebFrame* frame = page()->mainFrame();
+  frame->evaluateJavaScript( code.join( "\n" ).arg( latSW ).arg( lonSW ).arg( latNE ).arg( lonNE ) );
 }
 
 } // namespace ptui
