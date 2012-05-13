@@ -22,10 +22,6 @@ public:
 protected:
   void timerEvent( QTimerEvent* event );
 
-  void mousePressEvent( QMouseEvent* event );
-  void mouseReleaseEvent( QMouseEvent* event );
-  void mouseMoveEvent( QMouseEvent* event );
-
 private Q_SLOTS:
   void triggerLoading();
 

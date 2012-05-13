@@ -70,47 +70,4 @@ void MapWidget::setCenter( double latitude, double longitude )
   frame->evaluateJavaScript( code.arg( latitude ).arg( longitude ) );
 }
 
-/*
- * mousePressEvent
- */
-void MapWidget::mousePressEvent( QMouseEvent* event )
-{
-  event->ignore();
-  QWebView::mousePressEvent( event );
-
-  mPressed = true;
-  mPressPos = event->pos();
-  mDragPos = event->pos();
-}
-
-/*
- * mouseReleaseEvent
- */
-void MapWidget::mouseReleaseEvent( QMouseEvent* event )
-{
-  event->ignore();
-  QWebView::mouseReleaseEvent( event );
-
-  mPressed = false;
-
-  update();
-}
-
-/*
- * mouseMoveEvent
- */
-void MapWidget::mouseMoveEvent( QMouseEvent* event )
-{
-  if( !mPressed ) {
-    QWebView::mouseMoveEvent( event );
-    return;
-  }
-
-  event->ignore();
-  QWebView::mouseMoveEvent( event );
-
-  mDragPos = event->pos();
-  update();
-}
-
 } // namespace ptui
