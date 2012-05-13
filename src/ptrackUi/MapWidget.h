@@ -17,7 +17,11 @@ class PTUI_API MapWidget : public QWebView
 public:
   MapWidget( QWidget* parent = 0 );
 
+  void setCenter( double latitude, double longitude );
+
 protected:
+  void timerEvent( QTimerEvent* event );
+
   void mousePressEvent( QMouseEvent* event );
   void mouseReleaseEvent( QMouseEvent* event );
   void mouseMoveEvent( QMouseEvent* event );
@@ -31,6 +35,8 @@ private:
   bool mPressed;
   QPoint mPressPos;
   QPoint mDragPos;
+
+  QBasicTimer mTapTimer;
 
   static const char* kHtml;
 };

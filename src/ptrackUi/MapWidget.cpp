@@ -1,5 +1,7 @@
 #include <ptrackUi/MapWidget.h>
 
+#include <QDebug>
+
 namespace ptui {
 
 const char* MapWidget::kHtml = "<html><head><script type=\"text/javascript\" " \
@@ -19,7 +21,8 @@ const char* MapWidget::kHtml = "<html><head><script type=\"text/javascript\" " \
  */
 MapWidget::MapWidget( QWidget* parent )
  : QWebView( parent ),
-   mNetManager( new QNetworkAccessManager( this ) )
+   mNetManager( new QNetworkAccessManager( this ) ),
+   mPressed( false )
 {
   QWebFrame* frame = page()->mainFrame();
   frame->setHtml( QString( kHtml ) );
@@ -32,9 +35,39 @@ MapWidget::MapWidget( QWidget* parent )
  */
 void MapWidget::triggerLoading()
 {
-  QString code = "init(37.6970,  -91.8096)";
+  QString code = "init(37.6970, -91.8096)";
   QWebFrame *frame = page()->mainFrame();
   frame->evaluateJavaScript( code );
+}
+
+/*
+ * timerEvent
+ */
+void MapWidget::timerEvent( QTimerEvent* event )
+{
+  qDebug() << "timerEvent()";
+
+  QWebView::timerEvent( event );
+
+  mTapTimer.stop();
+
+  QWebFrame *frame = page()->mainFrame();
+  double lat = frame->evaluateJavaScript( "map.get_center().lat()" ).toDouble();
+  double lng = frame->evaluateJavaScript( "map.get_center().lng()" ).toDouble();
+
+  setCenter( lat, lng );
+
+  update();
+}
+
+/*
+ * setCenter
+ */
+void MapWidget::setCenter( double latitude, double longitude )
+{
+  QString code = "map.set_center(new google.maps.LatLng(%1, %2));";
+  QWebFrame *frame = page()->mainFrame();
+  frame->evaluateJavaScript( code.arg( latitude ).arg( longitude ) );
 }
 
 /*
@@ -45,6 +78,10 @@ void MapWidget::mousePressEvent( QMouseEvent* event )
   mPressed = true;
   mPressPos = event->pos();
   mDragPos = event->pos();
+
+  mTapTimer.stop();
+  mTapTimer.start( 700, this );
+
   QWebView::mousePressEvent( event );
 }
 
@@ -54,6 +91,9 @@ void MapWidget::mousePressEvent( QMouseEvent* event )
 void MapWidget::mouseReleaseEvent( QMouseEvent* event )
 {
   mPressed = false;
+
+  mTapTimer.stop();
+
   event->accept();
   update();
 
