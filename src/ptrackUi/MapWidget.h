@@ -3,10 +3,7 @@
 
 #include <ptrackUi/PTrackUiMacros.h>
 
-//#include <QtNetwork/QNetworkAccessManager>
 #include <QtWebKit/QtWebKit>
-
-//#include <boost/shared_ptr.hpp>
 
 namespace ptui {
 
@@ -18,16 +15,13 @@ public:
   MapWidget( QWidget* parent = 0 );
 
   void setCenter( double latitude, double longitude );
-
-protected:
-  void timerEvent( QTimerEvent* event );
+  void setBounds( double latSW, double lonSW, double latNE, double lonNE );
 
 private Q_SLOTS:
-  void triggerLoading();
+  void triggerInitMap();
+  void htmlLoadFinished( bool success );
 
 private:
-//  boost::shared_ptr< QNetworkAccessManager > mNetManager;
-
   bool mPressed;
   QPoint mPressPos;
   QPoint mDragPos;

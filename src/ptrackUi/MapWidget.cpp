@@ -31,33 +31,31 @@ MapWidget::MapWidget( QWidget* parent )
   QWebFrame* frame = page()->mainFrame();
   frame->setHtml( QString( kHtml ) );
 
-  QTimer::singleShot( 1000, this, SLOT( triggerLoading() ) );
+  connect( this, SIGNAL( loadFinished( bool ) ), SLOT( htmlLoadFinished( bool ) ) );
 }
 
 /*
- * triggerLoading
+ * htmlLoadFinished
  */
-void MapWidget::triggerLoading()
+void MapWidget::htmlLoadFinished( bool success )
 {
+  qDebug() << "htmlLoadFinished( bool )";
+
+  if( success ) {
+    triggerInitMap();
+  }
+}
+
+/*
+ * triggerInitMap
+ */
+void MapWidget::triggerInitMap()
+{
+  qDebug() << "triggerInitMap()";
+
   QString code = "init(37.6970, -91.8096)";
   QWebFrame *frame = page()->mainFrame();
   frame->evaluateJavaScript( code );
-}
-
-/*
- * timerEvent
- */
-void MapWidget::timerEvent( QTimerEvent* event )
-{
-  QWebView::timerEvent( event );
-
-  QWebFrame *frame = page()->mainFrame();
-  double lat = frame->evaluateJavaScript( "map.getCenter().lat()" ).toDouble();
-  double lng = frame->evaluateJavaScript( "map.getCenter().lng()" ).toDouble();
-
-  setCenter( lat, lng );
-
-  update();
 }
 
 /*
@@ -68,6 +66,14 @@ void MapWidget::setCenter( double latitude, double longitude )
   QString code = "map.set_center(new google.maps.LatLng(%1, %2));";
   QWebFrame *frame = page()->mainFrame();
   frame->evaluateJavaScript( code.arg( latitude ).arg( longitude ) );
+}
+
+/*
+ * setBounds
+ */
+void MapWidget::setBounds( double latSW, double longSW, double latNE, double lonNE )
+{
+
 }
 
 } // namespace ptui
