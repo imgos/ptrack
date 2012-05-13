@@ -1,6 +1,6 @@
 #include <ptrackUi/MapWidget.h>
 
-#include <QDebug>
+#include <ptrackUi/MapPage.h>
 
 namespace ptui {
 
@@ -9,8 +9,9 @@ const char* MapWidget::kHtml = "<html><head><script type=\"text/javascript\" " \
     "<script  type=\"text/javascript\">" \
     "var map; function init(lat, lng) { "\
     "map = new google.maps.Map(document.getElementById(\"map_canvas\"), " \
-    "{ zoom: 5, center: new google.maps.LatLng(lat, lng), " \
-    "disableDefaultUI: true, mapTypeId: google.maps.MapTypeId.ROADMAP  });" \
+    "{ zoom: 5, draggable: true, center: new google.maps.LatLng(lat, lng), " \
+    "disableDefaultUI: true, mapTypeId: google.maps.MapTypeId.ROADMAP, " \
+    "scrollwheel: true, navigationControl: true, disableDoubleClickZoom: false });" \
     "} </script>" \
     "</head><body style=\"margin:0px; padding:0px;\">" \
     "<div id=\"map_canvas\" style=\"width:100%; height:100%\"></div>" \
@@ -21,9 +22,12 @@ const char* MapWidget::kHtml = "<html><head><script type=\"text/javascript\" " \
  */
 MapWidget::MapWidget( QWidget* parent )
  : QWebView( parent ),
-   mNetManager( new QNetworkAccessManager( this ) ),
    mPressed( false )
 {
+  setMouseTracking( true );
+
+  setPage( new MapPage );
+
   QWebFrame* frame = page()->mainFrame();
   frame->setHtml( QString( kHtml ) );
 
@@ -45,15 +49,11 @@ void MapWidget::triggerLoading()
  */
 void MapWidget::timerEvent( QTimerEvent* event )
 {
-  qDebug() << "timerEvent()";
-
   QWebView::timerEvent( event );
 
-  mTapTimer.stop();
-
   QWebFrame *frame = page()->mainFrame();
-  double lat = frame->evaluateJavaScript( "map.get_center().lat()" ).toDouble();
-  double lng = frame->evaluateJavaScript( "map.get_center().lng()" ).toDouble();
+  double lat = frame->evaluateJavaScript( "map.getCenter().lat()" ).toDouble();
+  double lng = frame->evaluateJavaScript( "map.getCenter().lng()" ).toDouble();
 
   setCenter( lat, lng );
 
@@ -75,14 +75,12 @@ void MapWidget::setCenter( double latitude, double longitude )
  */
 void MapWidget::mousePressEvent( QMouseEvent* event )
 {
+  event->ignore();
+  QWebView::mousePressEvent( event );
+
   mPressed = true;
   mPressPos = event->pos();
   mDragPos = event->pos();
-
-  mTapTimer.stop();
-  mTapTimer.start( 700, this );
-
-  QWebView::mousePressEvent( event );
 }
 
 /*
@@ -90,14 +88,12 @@ void MapWidget::mousePressEvent( QMouseEvent* event )
  */
 void MapWidget::mouseReleaseEvent( QMouseEvent* event )
 {
+  event->ignore();
+  QWebView::mouseReleaseEvent( event );
+
   mPressed = false;
 
-  mTapTimer.stop();
-
-  event->accept();
   update();
-
-  QWebView::mouseReleaseEvent( event );
 }
 
 /*
@@ -109,6 +105,9 @@ void MapWidget::mouseMoveEvent( QMouseEvent* event )
     QWebView::mouseMoveEvent( event );
     return;
   }
+
+  event->ignore();
+  QWebView::mouseMoveEvent( event );
 
   mDragPos = event->pos();
   update();

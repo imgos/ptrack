@@ -3,10 +3,10 @@
 
 #include <ptrackUi/PTrackUiMacros.h>
 
-#include <QtNetwork/QNetworkAccessManager>
+//#include <QtNetwork/QNetworkAccessManager>
 #include <QtWebKit/QtWebKit>
 
-#include <boost/shared_ptr.hpp>
+//#include <boost/shared_ptr.hpp>
 
 namespace ptui {
 
@@ -30,13 +30,11 @@ private Q_SLOTS:
   void triggerLoading();
 
 private:
-  boost::shared_ptr< QNetworkAccessManager > mNetManager;
+//  boost::shared_ptr< QNetworkAccessManager > mNetManager;
 
   bool mPressed;
   QPoint mPressPos;
   QPoint mDragPos;
-
-  QBasicTimer mTapTimer;
 
   static const char* kHtml;
 };
