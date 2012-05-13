@@ -25,6 +25,9 @@ public:
   QByteArray splitterState();
   void setSplitterState( QByteArray s );
 
+  QString dbPath();
+  void setDbPath( QString path );
+
 protected:
   static void create();
 
@@ -38,6 +41,8 @@ private:
   static QByteArray mWindowGeometry;
   static QByteArray mWindowState;
   static QByteArray mSplitterState;
+
+  static QString mDbPath;
 
   static PTrackPreferencesData* mInstance;
 };

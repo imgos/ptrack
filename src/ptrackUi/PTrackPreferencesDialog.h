@@ -16,6 +16,11 @@ class PTUI_API PTrackPreferencesDialog : public QDialog
 public:
   PTrackPreferencesDialog();
 
+protected Q_SLOTS:
+  virtual void accept();
+
+  void dbPathButtonClicked();
+
 private:
   boost::scoped_ptr< Ui::PTrackPreferencesDialogBase > mUi;
 };

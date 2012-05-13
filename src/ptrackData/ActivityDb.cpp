@@ -9,11 +9,15 @@ namespace ptdata {
  */
 ActivityDb::ActivityDb( const std::string& fileName )
  : mFileName( fileName ),
-   mDb( NULL )
+   mDb( NULL ),
+   mDbOkay( false )
 {
   if( !sqlite3_open( fileName.c_str(), &mDb ) ) {
     std::cerr << "Failed to open database" << std::endl;
+    return;
   }
+
+  mDbOkay = true;
 }
 
 /*

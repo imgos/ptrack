@@ -17,7 +17,9 @@ public:
 
 private:
   std::string mFileName;
+
   sqlite3* mDb;
+  bool mDbOkay;
 };
 
 }

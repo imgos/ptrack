@@ -11,6 +11,8 @@ QByteArray PTrackPreferencesData::mWindowGeometry;
 QByteArray PTrackPreferencesData::mWindowState;
 QByteArray PTrackPreferencesData::mSplitterState;
 
+QString PTrackPreferencesData::mDbPath;
+
 PTrackPreferencesData* PTrackPreferencesData::mInstance;
 
 
@@ -39,6 +41,8 @@ void PTrackPreferencesData::save()
   s.setValue( "ptrackui/windowgeometry", mWindowGeometry );
   s.setValue( "ptrackui/windowstate", mWindowState );
   s.setValue( "ptrackui/splitterstate", mSplitterState );
+
+  s.setValue( "ptrackdata/dbpath", mDbPath );
 }
 
 /*
@@ -53,6 +57,8 @@ void PTrackPreferencesData::create()
   mWindowGeometry = s.value( "ptrackui/windowgeometry" ).toByteArray();
   mWindowState = s.value( "ptrackui/windowstate" ).toByteArray();
   mSplitterState = s.value( "ptrackui/splitterstate" ).toByteArray();
+
+  mDbPath = s.value( "ptrackdata/dbpath" ).toString();
 }
 
 /*
@@ -113,6 +119,22 @@ QByteArray PTrackPreferencesData::splitterState()
 void PTrackPreferencesData::setSplitterState( QByteArray s )
 {
   mSplitterState = s;
+}
+
+/*
+ * dbPath
+ */
+QString PTrackPreferencesData::dbPath()
+{
+  return mDbPath;
+}
+
+/*
+ * setDbPath
+ */
+void PTrackPreferencesData::setDbPath( QString path )
+{
+  mDbPath = path;
 }
 
 } // namespace ptdata
