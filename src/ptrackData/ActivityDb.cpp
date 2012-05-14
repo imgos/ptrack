@@ -32,4 +32,15 @@ ActivityDb::~ActivityDb()
   }
 }
 
+void ActivityDb::updateDatabaseFile( const std::string& fileName )
+{
+  sqlite3_close( mDb );
+
+  int retVal = sqlite3_open( fileName.c_str(), &mDb );
+  if( retVal != SQLITE_OK ) {
+    std::cerr << "Failed to open database" << std::endl;
+    sqlite3_close( mDb );
+  }
+}
+
 }

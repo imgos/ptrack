@@ -27,6 +27,8 @@ void PTrackPreferencesDialog::accept()
 {
   ptdata::PTrackPreferencesData::instance()->setDbPath( mUi->mDbPathLineEdit->text() );
   close();
+
+  emit prefsChanged();
 }
 
 /*

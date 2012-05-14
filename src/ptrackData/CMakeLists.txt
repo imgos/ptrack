@@ -1,6 +1,7 @@
 project( ptrackData )
 
 file( GLOB sourceFiles *.cpp )
+file( GLOB headerFiles *.h )
 
 add_definitions(
   -DBUILDING_DLL
@@ -23,6 +24,7 @@ include_directories(
 
 add_library( ${PROJECT_NAME} SHARED
   ${sourceFiles}
+  ${headerFiles}
 )
 
 target_link_libraries( ${PROJECT_NAME}

@@ -26,6 +26,7 @@ public:
 
 protected Q_SLOTS:
   void openPreferences();
+  void handlePrefsChanged();
 
 private:
   boost::scoped_ptr< Ui::PTrackUiBase > mUi;

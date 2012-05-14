@@ -21,6 +21,9 @@ protected Q_SLOTS:
 
   void dbPathButtonClicked();
 
+Q_SIGNALS:
+  void prefsChanged();
+
 private:
   boost::scoped_ptr< Ui::PTrackPreferencesDialogBase > mUi;
 };

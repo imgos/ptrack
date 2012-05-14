@@ -21,6 +21,7 @@ add_subdirectory( ptrackUi )
 file( GLOB srcFiles *.cpp )
 
 find_package( Boost REQUIRED )
+find_package( SQLITE3 REQUIRED )
 
 set( QT_USE_QT3SUPPORT FALSE )
 find_package( Qt4 REQUIRED )
@@ -31,6 +32,7 @@ include_directories(
   ${CMAKE_SOURCE_DIR}
   ${CMAKE_BINARY_DIR}
   ${Boost_INCLUDE_DIR}
+  ${SQLITE3_INCLUDE_DIR}
   ${QT_INCLUDE_DIR}
 )
 

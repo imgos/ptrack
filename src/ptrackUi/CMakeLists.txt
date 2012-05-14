@@ -9,6 +9,7 @@ add_definitions(
 )
 
 find_package( Boost REQUIRED )
+find_package( SQLITE3 REQUIRED )
 
 set( QT_USE_QT3SUPPORT FALSE )
 set( QT_USE_WEBKIT TRUE )
@@ -24,12 +25,13 @@ include_directories(
   ${CMAKE_BINARY_DIR}
   ${QT_INCLUDE_DIR}
   ${Boost_INCLUDE_DIR}
+  ${SQLITE3_INCLUDE_DIR}
 )
 
 add_library( ${PROJECT_NAME} SHARED
   ${sourceFiles}
+  ${headerFiles}
   ${mocSources}
-  ${uicHeaders}
 )
 
 target_link_libraries( ${PROJECT_NAME}

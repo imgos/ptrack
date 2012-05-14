@@ -48,7 +48,18 @@ void PTrackUi::closeEvent( QCloseEvent* e )
 void PTrackUi::openPreferences()
 {
   boost::scoped_ptr< PTrackPreferencesDialog > prefs( new PTrackPreferencesDialog( this ) );
+  connect( prefs.get(), SIGNAL( prefsChanged() ), this, SLOT( handlePrefsChanged() ) );
+
   prefs->exec();
+}
+
+/*
+ * handlePrefsChanged
+ */
+void PTrackUi::handlePrefsChanged()
+{
+  // database file may have changed
+  mDb->updateDatabaseFile( ptdata::PTrackPreferencesData::instance()->dbPath().toStdString() );
 }
 
 } //namespace ptui
