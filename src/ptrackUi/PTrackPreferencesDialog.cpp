@@ -9,8 +9,8 @@ namespace ptui {
 /*
  * PTrackPreferencesDialog
  */
-PTrackPreferencesDialog::PTrackPreferencesDialog()
- : QDialog(),
+PTrackPreferencesDialog::PTrackPreferencesDialog( QWidget* parent )
+ : QDialog( parent ),
    mUi( new Ui::PTrackPreferencesDialogBase )
 {
   mUi->setupUi( this );

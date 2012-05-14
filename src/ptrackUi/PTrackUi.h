@@ -5,7 +5,10 @@
 
 #include <ptrackUi/ui_PTrackUiBase.h>
 
+#include <ptrackData/ActivityDb.h>
+
 #include <boost/scoped_ptr.hpp>
+#include <boost/shared_ptr.hpp>
 
 class QCloseEvent;
 
@@ -17,7 +20,7 @@ class PTUI_API PTrackUi : public QMainWindow
   Q_OBJECT
 
 public:
-  PTrackUi();
+  PTrackUi( QWidget* parent = 0 );
 
   void closeEvent( QCloseEvent* e );
 
@@ -26,6 +29,8 @@ protected Q_SLOTS:
 
 private:
   boost::scoped_ptr< Ui::PTrackUiBase > mUi;
+
+  boost::shared_ptr< ptdata::ActivityDb > mDb;
 };
 
 } //namespace ptui

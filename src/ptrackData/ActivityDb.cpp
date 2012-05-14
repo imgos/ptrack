@@ -12,8 +12,10 @@ ActivityDb::ActivityDb( const std::string& fileName )
    mDb( NULL ),
    mDbOkay( false )
 {
-  if( !sqlite3_open( fileName.c_str(), &mDb ) ) {
+  int retVal = sqlite3_open( fileName.c_str(), &mDb );
+  if( retVal != SQLITE_OK ) {
     std::cerr << "Failed to open database" << std::endl;
+    sqlite3_close( mDb );
     return;
   }
 

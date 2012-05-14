@@ -39,8 +39,6 @@ MapWidget::MapWidget( QWidget* parent )
  */
 void MapWidget::htmlLoadFinished( bool success )
 {
-  qDebug() << "htmlLoadFinished( bool )";
-
   if( success ) {
     triggerInitMap();
   }
@@ -51,8 +49,6 @@ void MapWidget::htmlLoadFinished( bool success )
  */
 void MapWidget::triggerInitMap()
 {
-  qDebug() << "triggerInitMap()";
-
   QString code = "init(37.6970, -91.8096)";
   QWebFrame* frame = page()->mainFrame();
   frame->evaluateJavaScript( code );

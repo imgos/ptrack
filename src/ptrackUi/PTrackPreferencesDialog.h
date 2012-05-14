@@ -14,7 +14,7 @@ class PTUI_API PTrackPreferencesDialog : public QDialog
   Q_OBJECT
 
 public:
-  PTrackPreferencesDialog();
+  PTrackPreferencesDialog( QWidget* parent = 0 );
 
 protected Q_SLOTS:
   virtual void accept();

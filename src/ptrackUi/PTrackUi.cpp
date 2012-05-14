@@ -13,8 +13,8 @@ namespace ptui {
 /*
  * PTrackUi
  */
-PTrackUi::PTrackUi()
- : QMainWindow(),
+PTrackUi::PTrackUi( QWidget* parent )
+ : QMainWindow( parent ),
    mUi( new Ui::PTrackUiBase )
 {
   mUi->setupUi( this );
@@ -25,6 +25,9 @@ PTrackUi::PTrackUi()
   restoreGeometry( ptdata::PTrackPreferencesData::instance()->windowGeometry() );
   restoreState( ptdata::PTrackPreferencesData::instance()->windowState() );
   mUi->mSplitter->restoreState( ptdata::PTrackPreferencesData::instance()->splitterState() );
+
+  // load database
+  mDb.reset( new ptdata::ActivityDb( ptdata::PTrackPreferencesData::instance()->dbPath().toStdString() ) );
 }
 
 /*
@@ -44,7 +47,7 @@ void PTrackUi::closeEvent( QCloseEvent* e )
  */
 void PTrackUi::openPreferences()
 {
-  boost::scoped_ptr< PTrackPreferencesDialog > prefs( new PTrackPreferencesDialog );
+  boost::scoped_ptr< PTrackPreferencesDialog > prefs( new PTrackPreferencesDialog( this ) );
   prefs->exec();
 }
 
