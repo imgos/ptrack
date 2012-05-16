@@ -73,6 +73,10 @@
    </property>
   </action>
   <action name="mPreferencesAction">
+   <property name="icon">
+    <iconset resource="../../images/ptrack.qrc">
+     <normaloff>:/preferences.png</normaloff>:/preferences.png</iconset>
+   </property>
    <property name="text">
     <string>Preferences</string>
    </property>
@@ -96,7 +100,9 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../../images/ptrack.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>mExitAction</sender>

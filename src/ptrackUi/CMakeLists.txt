@@ -4,6 +4,10 @@ file( GLOB headerFiles *.h )
 file( GLOB sourceFiles *.cpp )
 file( GLOB uiFiles *.ui )
 
+set( resourceFiles
+  ../../images/ptrack.qrc
+)
+
 add_definitions(
   -DBUILDING_DLL
 )
@@ -19,6 +23,7 @@ include( ${QT_USE_FILE} )
 
 QT4_WRAP_UI( uicHeaders ${uiFiles} )
 QT4_WRAP_CPP( mocSources ${headerFiles} )
+QT4_ADD_RESOURCES( rccSource ${resourceFiles} )
 
 include_directories(
   ${CMAKE_SOURCE_DIR}
@@ -33,6 +38,7 @@ add_library( ${PROJECT_NAME} SHARED
   ${headerFiles}
   ${mocSources}
   ${uicHeaders}
+  ${rccSource}
 )
 
 target_link_libraries( ${PROJECT_NAME}
