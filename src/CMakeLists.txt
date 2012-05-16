@@ -15,6 +15,8 @@ else()
   set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/${CMAKE_BUILD_TYPE} )
 endif()
 
+set( CMAKE_DEBUG_POSTFIX "d" )
+
 add_subdirectory( ptrackData )
 add_subdirectory( ptrackUi )
 
@@ -36,11 +38,19 @@ include_directories(
   ${QT_INCLUDE_DIR}
 )
 
-add_executable( ${PROJECT_NAME}
+if( WIN32 )
+  set( typeId WIN32 )
+  set( winIconResource winIcon.rc )
+elseif( APPLE )
+  set( typeId MACOSX_BUNDLE )
+endif()
+
+add_executable( ${PROJECT_NAME} ${typeId} ${winIconResource}
   ${srcFiles}
 )
 
 target_link_libraries( ${PROJECT_NAME}
+  ${QT_QTMAIN_LIBRARY}
   ${QT_LIBRARIES}
   ptrackUi
 )
