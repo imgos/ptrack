@@ -1,5 +1,7 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource>
+  <file>about.png</file>
+  <file>exit.png</file>
   <file>preferences.png</file>
 </qresource>
 </RCC>
