@@ -3,9 +3,9 @@
 
 #include <ptrackData/PTrackDataMacros.h>
 
-#include <sqlite3.h>
-
 #include <string>
+
+struct sqlite3;
 
 namespace ptdata {
 
@@ -17,7 +17,9 @@ public:
 
   bool updateDatabaseFile( const std::string& fileName );
 
-  bool status();
+  bool status() const;
+
+  void categoryNameQuery( const std::string& categoryName );
 
 private:
   std::string mFileName;
@@ -26,6 +28,6 @@ private:
   bool mDbOkay;
 };
 
-}
+} // namespace ptdata
 
 #endif
