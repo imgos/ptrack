@@ -5,7 +5,7 @@
 #include <ptrackUi/PTrackUi.h>
 
 #include <QApplication>
-#include <QtNetwork/QNetworkProxyFactory>
+#include <QNetworkProxyFactory>
 
 int main( int argc, char** argv )
 {

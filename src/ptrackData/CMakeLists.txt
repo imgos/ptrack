@@ -17,7 +17,7 @@ include( ${QT_USE_FILE} )
 
 include_directories(
   ${CMAKE_SOURCE_DIR}
-  ${QT_INCLUDE_DIR}
+  ${QT_INCLUDES}
   ${Boost_INCLUDE_DIR}
   ${SQLITE3_INCLUDE_DIR}
 )

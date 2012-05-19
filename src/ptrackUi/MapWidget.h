@@ -3,7 +3,7 @@
 
 #include <ptrackUi/PTrackUiMacros.h>
 
-#include <QtWebKit/QtWebKit>
+#include <QtWebKit>
 
 namespace ptui {
 
