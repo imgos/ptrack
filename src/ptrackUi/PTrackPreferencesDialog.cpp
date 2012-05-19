@@ -38,7 +38,13 @@ void PTrackPreferencesDialog::dbPathButtonClicked()
 {
   QFileInfo info( ptdata::PTrackPreferencesData::instance()->dbPath() );
 
-  QString file = QFileDialog::getSaveFileName( this, "Select Database File", info.path(), "SQlite3 Database (*.db)" );
+  QString file = QFileDialog::getSaveFileName(
+    this,
+    "Select Database File",
+    info.path(),
+    "SQlite3 Database (*.sqlite3 *.db);;All Files (*.*)",
+    0,
+    QFileDialog::DontConfirmOverwrite );
 
   if( !file.isEmpty() ) {
     mUi->mDbPathLineEdit->setText( file );
