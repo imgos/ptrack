@@ -15,7 +15,9 @@ public:
   ActivityDb( const std::string& fileName );
   ~ActivityDb();
 
-  void updateDatabaseFile( const std::string& fileName );
+  bool updateDatabaseFile( const std::string& fileName );
+
+  bool status();
 
 private:
   std::string mFileName;

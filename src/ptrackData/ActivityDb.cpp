@@ -12,14 +12,7 @@ ActivityDb::ActivityDb( const std::string& fileName )
    mDb( NULL ),
    mDbOkay( false )
 {
-  int retVal = sqlite3_open( fileName.c_str(), &mDb );
-  if( retVal != SQLITE_OK ) {
-    std::cerr << "Failed to open database" << std::endl;
-    sqlite3_close( mDb );
-    return;
-  }
-
-  mDbOkay = true;
+  mDbOkay = updateDatabaseFile( fileName );
 }
 
 /*
@@ -32,7 +25,10 @@ ActivityDb::~ActivityDb()
   }
 }
 
-void ActivityDb::updateDatabaseFile( const std::string& fileName )
+/*
+ * updateDatabaseFile
+ */
+bool ActivityDb::updateDatabaseFile( const std::string& fileName )
 {
   sqlite3_close( mDb );
 
@@ -40,7 +36,33 @@ void ActivityDb::updateDatabaseFile( const std::string& fileName )
   if( retVal != SQLITE_OK ) {
     std::cerr << "Failed to open database" << std::endl;
     sqlite3_close( mDb );
+    return false;
   }
+
+  const char* createDbQuery =
+    "CREATE TABLE IF NOT EXISTS " \
+    "  activity ( category TEXT, " \
+    "    dateTime TEXT, " \
+    "    gpsRoute BLOB, " \
+    "    totalTime REAL, " \
+    "    totalDistance REAL )";
+
+  retVal = sqlite3_exec( mDb, createDbQuery, 0, 0, 0 );
+
+  if( retVal != SQLITE_OK ) {
+    std::cerr << "Failed to configure database." << std::endl;
+    return false;
+  }
+
+  return true;
+}
+
+/*
+ * status
+ */
+bool ActivityDb::status()
+{
+  return mDbOkay;
 }
 
 }
