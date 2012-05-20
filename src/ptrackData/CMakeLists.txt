@@ -1,13 +1,26 @@
 project( ptrackData )
 
-file( GLOB sourceFiles *.cpp )
-file( GLOB headerFiles *.h )
+set( sourceFiles
+  ActivityDb.cpp
+  PTrackPreferencesData.cpp
+  import/GenericImport.cpp
+  import/SportTracksImport.cpp
+)
+
+set( headerFiles
+  ActivityDb.h
+  PTrackDataMacros.h
+  PTrackPreferencesData.h
+  import/GenericImport.h
+  import/SportTracksImport.h
+)
 
 add_definitions(
   -DBUILDING_DLL
+  -DBOOST_FILESYSTEM_VERSION=3
 )
 
-find_package( Boost REQUIRED )
+find_package( Boost REQUIRED COMPONENTS filesystem )
 find_package( SQLITE3 REQUIRED )
 
 set( QT_USE_QT3SUPPORT FALSE )
@@ -29,5 +42,6 @@ add_library( ${PROJECT_NAME} SHARED
 
 target_link_libraries( ${PROJECT_NAME}
   ${QT_LIBRARIES}
+  ${Boost_LIBRARIES}
   ${SQLITE3_LIBRARIES}
 )

@@ -1,5 +1,5 @@
-#ifndef PTrackPreferencesData_h
-#define PTrackPreferencesData_h
+#ifndef ptdata_PTrackPreferencesData_h
+#define ptdata_PTrackPreferencesData_h
 
 #include <ptrackData/PTrackDataMacros.h>
 
