@@ -14,6 +14,11 @@ class PTDATA_API SportTracksImport : public GenericImport
 {
 public:
   SportTracksImport( boost::filesystem::path logbookPath );
+
+  bool loadDataFromFile( boost::filesystem::path logbookPath );
+
+private:
+  boost::filesystem::path mLogbookPath;
 };
 
 } // namespace import
