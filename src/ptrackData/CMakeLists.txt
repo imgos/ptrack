@@ -17,10 +17,11 @@ set( headerFiles
 
 add_definitions(
   -DBUILDING_DLL
+  -DBOOST_ALL_DYN_LINK
   -DBOOST_FILESYSTEM_VERSION=3
 )
 
-find_package( Boost REQUIRED COMPONENTS filesystem )
+find_package( Boost COMPONENTS system filesystem REQUIRED )
 find_package( SQLITE3 REQUIRED )
 
 set( QT_USE_QT3SUPPORT FALSE )
