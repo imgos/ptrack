@@ -4,18 +4,34 @@
 
 namespace ptui {
 
-const char* MapWidget::kHtml = "<html><head><script type=\"text/javascript\" " \
-    "src=\"http://maps.google.com/maps/api/js?sensor=false\"></script>" \
-    "<script  type=\"text/javascript\">" \
-    "var map; function init(lat, lng) { "\
-    "map = new google.maps.Map(document.getElementById(\"map_canvas\"), " \
-    "{ zoom: 5, draggable: true, center: new google.maps.LatLng(lat, lng), " \
-    "disableDefaultUI: true, mapTypeId: google.maps.MapTypeId.ROADMAP, " \
-    "scrollwheel: true, navigationControl: true, disableDoubleClickZoom: false });" \
-    "} </script>" \
-    "</head><body style=\"margin:0px; padding:0px;\">" \
-    "<div id=\"map_canvas\" style=\"width:100%; height:100%\"></div>" \
-    "</body></html>";
+const char* MapWidget::kHtml =
+    "<html>" \
+    "  <head>" \
+    "    <script type=\"text/javascript\"src=\"http://maps.google.com/maps/api/js?sensor=false\"></script>" \
+    "    <script type=\"text/javascript\">" \
+    "      var map;" \
+    "      function init(lat, lng) { " \
+    "        map = new google.maps.Map( document.getElementById( \"map_canvas\" )," \
+    "          {" \
+    "            zoom: 5," \
+    "            draggable: true," \
+    "            center: new google.maps.LatLng( lat, lng )," \
+    "            disableDefaultUI: true," \
+    "            mapTypeId: google.maps.MapTypeId.ROADMAP," \
+    "            scrollwheel: true," \
+    "            mapTypeControl: true," \
+    "            zoomControl: true," \
+    "            scaleControl: true," \
+    "            disableDoubleClickZoom: false" \
+    "          }" \
+    "        );" \
+    "      }" \
+    "    </script>" \
+    "  </head>" \
+    "  <body style=\"margin:0px; padding:0px;\">" \
+    "    <div id=\"map_canvas\" style=\"width:100%; height:100%\"></div>" \
+    "  </body>" \
+    "</html>";
 
 /*
  * MapWidget
