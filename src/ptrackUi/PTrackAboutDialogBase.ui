@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PTrackAboutDialogBase</class>
+ <widget class="QDialog" name="PTrackAboutDialogBase">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>421</width>
+    <height>386</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>About</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../../images/ptrack.qrc">
+    <normaloff>:/about.png</normaloff>:/about.png</iconset>
+  </property>
+ </widget>
+ <resources>
+  <include location="../../images/ptrack.qrc"/>
+ </resources>
+ <connections/>
+</ui>

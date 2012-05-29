@@ -64,13 +64,13 @@
     <property name="title">
      <string>Help</string>
     </property>
-    <addaction name="actionAbout"/>
+    <addaction name="mAboutAction"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionAbout">
+  <action name="mAboutAction">
    <property name="icon">
     <iconset resource="../../images/ptrack.qrc">
      <normaloff>:/about.png</normaloff>:/about.png</iconset>

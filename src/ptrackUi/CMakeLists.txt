@@ -1,8 +1,27 @@
 project( ptrackUi )
 
-file( GLOB headerFiles *.h )
-file( GLOB sourceFiles *.cpp )
-file( GLOB uiFiles *.ui )
+set( headerFiles
+  MapPage.h
+  MapWidget.h
+  PTrackAboutDialog.h
+  PTrackPreferencesDialog.h
+  PTrackUi.h
+  PTrackUiMacros.h
+)
+
+set( sourceFiles
+  MapPage.cpp
+  MapWidget.cpp
+  PTrackAboutDialog.cpp
+  PTrackPreferencesDialog.cpp
+  PTrackUi.cpp
+)
+
+set( uiFiles
+  PTrackAboutDialogBase.ui
+  PTrackPreferencesDialogBase.ui
+  PTrackUiBase.ui
+)
 
 set( resourceFiles
   ../../images/ptrack.qrc

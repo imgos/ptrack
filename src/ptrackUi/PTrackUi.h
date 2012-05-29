@@ -25,6 +25,7 @@ public:
   void closeEvent( QCloseEvent* e );
 
 protected Q_SLOTS:
+  void openAbout();
   void openPreferences();
   void handlePrefsChanged();
 

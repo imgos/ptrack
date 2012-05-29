@@ -2,6 +2,7 @@
 
 #include <ptrackUi/ui_PTrackUiBase.h>
 
+#include <ptrackUi/PTrackAboutDialog.h>
 #include <ptrackUi/PTrackPreferencesDialog.h>
 
 #include <ptrackData/PTrackPreferencesData.h>
@@ -19,6 +20,7 @@ PTrackUi::PTrackUi( QWidget* parent )
 {
   mUi->setupUi( this );
 
+  connect( mUi->mAboutAction, SIGNAL( triggered() ), this, SLOT( openAbout() ) );
   connect( mUi->mPreferencesAction, SIGNAL( triggered() ), this, SLOT( openPreferences() ) );
 
   // restore window size, position, state
@@ -40,6 +42,15 @@ void PTrackUi::closeEvent( QCloseEvent* e )
   ptdata::PTrackPreferencesData::instance()->setWindowState( saveState() );
   ptdata::PTrackPreferencesData::instance()->setSplitterState( mUi->mSplitter->saveState() );
   ptdata::PTrackPreferencesData::instance()->save();
+}
+
+/*
+ * openAbout
+ */
+void PTrackUi::openAbout()
+{
+  boost::scoped_ptr< PTrackAboutDialog > about( new PTrackAboutDialog( this ) );
+  about->exec();
 }
 
 /*
