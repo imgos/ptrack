@@ -10,6 +10,9 @@ PTrackAboutDialog::PTrackAboutDialog( QWidget* parent )
    mUi( new Ui::PTrackAboutDialogBase )
 {
   mUi->setupUi( this );
+
+  // hide '?' in titlebar
+  setWindowFlags( windowFlags() & ~Qt::WindowContextHelpButtonHint );
 }
 
 } // namespace ptui
