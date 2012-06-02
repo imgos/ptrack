@@ -119,7 +119,6 @@
   <zorder>mButtonBox</zorder>
   <zorder>mButtonBox</zorder>
   <zorder>mButtonBox</zorder>
-  <zorder>horizontalSpacer</zorder>
   <zorder>mTabWidget</zorder>
  </widget>
  <resources>
