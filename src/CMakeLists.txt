@@ -44,6 +44,8 @@ elseif( APPLE )
   set( typeId MACOSX_BUNDLE )
 endif()
 
+source_group( [*.cpp] FILES ${srcFiles} ${winIconResource} )
+
 add_executable( ${PROJECT_NAME} ${typeId} ${winIconResource}
   ${srcFiles}
 )

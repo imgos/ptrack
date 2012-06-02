@@ -36,6 +36,9 @@ include_directories(
   ${SQLITE3_INCLUDE_DIR}
 )
 
+source_group( [*.h] FILES ${headerFiles} )
+source_group( [*.cpp] FILES ${sourceFiles} )
+
 add_library( ${PROJECT_NAME} SHARED
   ${sourceFiles}
   ${headerFiles}
