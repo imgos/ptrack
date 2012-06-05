@@ -60,6 +60,15 @@ public:
     const int& uniqueId );
   bool updateActivity( const Activity& activity );
 
+  bool insertActivity( const std::string& category,
+    const QDateTime& dateTime,
+    const std::string& gpsTrack,
+    const double& totalTime,
+    const double& totalDistance,
+    const int& uniqueId,
+    long& newRowId );
+  bool insertActivity( const Activity& activity, long& newRowId );
+
 private:
   std::string mFileName;
 
