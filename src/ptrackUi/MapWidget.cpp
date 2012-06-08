@@ -2,6 +2,9 @@
 
 #include <ptrackUi/MapPage.h>
 
+#include <QNetworkReply>
+#include <QNetworkRequest>
+
 namespace ptui {
 
 const char* MapWidget::kHtml =
@@ -38,16 +41,24 @@ const char* MapWidget::kHtml =
  */
 MapWidget::MapWidget( QWidget* parent )
  : QWebView( parent ),
-   mPressed( false )
+   mPressed( false ),
+   mAccessManager( new QNetworkAccessManager( this ) )
 {
   setMouseTracking( true );
-
   setPage( new MapPage );
+
+  connect( this, SIGNAL( loadFinished( bool ) ), SLOT( htmlLoadFinished( bool ) ) );
 
   QWebFrame* frame = page()->mainFrame();
   frame->setHtml( QString( kHtml ) );
+}
 
-  connect( this, SIGNAL( loadFinished( bool ) ), SLOT( htmlLoadFinished( bool ) ) );
+/*
+ * ~MapWidget
+ */
+MapWidget::~MapWidget()
+{
+  delete mAccessManager;
 }
 
 /*

@@ -14,6 +14,7 @@ class PTUI_API MapWidget : public QWebView
 
 public:
   MapWidget( QWidget* parent = 0 );
+  virtual ~MapWidget();
 
   void setCenter( double latitude, double longitude );
   void setBounds( double latSW, double lonSW, double latNE, double lonNE );
@@ -26,6 +27,8 @@ private:
   bool mPressed;
   QPoint mPressPos;
   QPoint mDragPos;
+
+  QNetworkAccessManager* mAccessManager;
 
   static const char* kHtml;
 };
