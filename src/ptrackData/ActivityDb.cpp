@@ -244,4 +244,58 @@ bool ActivityDb::insertActivity( const Activity& activity, long& newRowId )
   return true;
 }
 
+/*
+ * rowToActivity
+ */
+ActivityDb::Activity ActivityDb::rowToActivity( sqlite3_stmt* statement )
+{
+  Activity activity;
+
+  activity.uniqueId = sqlite3_column_int( statement, 0 );
+  activity.category = std::string( (const char*) sqlite3_column_text( statement, 1 ) );
+  activity.dateTime = QDateTime::fromString( (const char*) sqlite3_column_text( statement, 2 ) );
+
+  //activity.gpsRoute = sqlite3_column_blob( statement, 3 );
+  //activity.gpsRoute
+
+  activity.totalTime = sqlite3_column_int( statement, 4 );
+  activity.totalDistance = sqlite3_column_int( statement, 5 );
+
+  return activity;
+}
+
+/*
+ * queryAll
+ */
+std::vector< ptdata::ActivityDb::Activity > ActivityDb::queryAll()
+{
+  const char* sql = "SELECT rowid, * FROM activity";
+
+  sqlite3_stmt* statement;
+
+  int retVal = sqlite3_prepare_v2( mDb, sql, -1, &statement, NULL );
+
+  std::vector< Activity > activityVector;
+
+  while( 1 ) {
+    int stepType = sqlite3_step( statement );
+
+    if( stepType == SQLITE_ROW ) {
+      // read this row into an Activity
+      activityVector.push_back( rowToActivity( statement ) );
+    } else if( stepType == SQLITE_DONE ) {
+      break;
+    } else {
+      std::cerr << "Error occurred stepping through DB rows." << std::endl;
+      break;
+    }
+  }
+
+  if( sqlite3_finalize( statement ) != SQLITE_OK ) {
+    std::cerr << "sqlite finalize failed" << std::cerr;
+  }
+
+  return activityVector;
+}
+
 } // namespace ptdata

@@ -6,8 +6,10 @@
 #include <QDateTime>
 
 #include <string>
+#include <vector>
 
 struct sqlite3;
+struct sqlite3_stmt;
 
 namespace ptdata {
 
@@ -68,6 +70,9 @@ public:
     const int& uniqueId,
     long& newRowId );
   bool insertActivity( const Activity& activity, long& newRowId );
+
+  Activity rowToActivity( sqlite3_stmt* statement );
+  std::vector< Activity > queryAll();
 
 private:
   std::string mFileName;
