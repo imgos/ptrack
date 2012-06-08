@@ -1,5 +1,5 @@
-#ifndef MapPage_h
-#define MapPage_h
+#ifndef ptui_MapPage_h
+#define ptui_MapPage_h
 
 #include <QtWebKit/QWebPage>
 

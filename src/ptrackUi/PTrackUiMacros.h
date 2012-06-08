@@ -1,5 +1,5 @@
-#ifndef PTrackUiMacros_h
-#define PTrackUiMacros_h
+#ifndef ptdata_PTrackUiMacros_h
+#define ptdata_PTrackUiMacros_h
 
 #if defined _WIN32 || defined __CYGWIN__
   #ifdef BUILDING_DLL

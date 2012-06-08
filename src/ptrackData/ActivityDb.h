@@ -1,5 +1,5 @@
-#ifndef ActivityDb_h
-#define ActivityDb_h
+#ifndef ptdata_ActivityDb_h
+#define ptdata_ActivityDb_h
 
 #include <ptrackData/PTrackDataMacros.h>
 

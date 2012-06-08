@@ -1,8 +1,9 @@
-#ifndef MapWidget_h
-#define MapWidget_h
+#ifndef ptui_MapWidget_h
+#define ptui_MapWidget_h
 
 #include <ptrackUi/PTrackUiMacros.h>
 
+#include <QNetworkAccessManager>
 #include <QtWebKit>
 
 namespace ptui {

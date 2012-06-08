@@ -1,5 +1,5 @@
-#ifndef PTrackUi_h
-#define PTrackUi_h
+#ifndef ptui_PTrackUi_h
+#define ptui_PTrackUi_h
 
 #include <ptrackUi/PTrackUiMacros.h>
 

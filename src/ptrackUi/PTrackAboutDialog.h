@@ -1,5 +1,5 @@
-#ifndef PTrackAboutDialog_h
-#define PTrackAboutDialog_h
+#ifndef ptui_PTrackAboutDialog_h
+#define ptui_PTrackAboutDialog_h
 
 #include <ptrackUi/PTrackUiMacros.h>
 
