@@ -23,7 +23,7 @@
       <property name="handleWidth">
        <number>7</number>
       </property>
-      <widget class="QListWidget" name="mDateListWidget">
+      <widget class="ptui::ActivityListWidget" name="mActivityListWidget">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -109,6 +109,11 @@
    <extends>QWebView</extends>
    <header location="global">ptrackUi/MapWidget.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ptui::ActivityListWidget</class>
+   <extends>QListWidget</extends>
+   <header location="global">ptrackUi/ActivityListWidget.h</header>
   </customwidget>
  </customwidgets>
  <resources>

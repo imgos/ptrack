@@ -30,6 +30,8 @@ PTrackUi::PTrackUi( QWidget* parent )
 
   // load database
   mDb.reset( new ptdata::ActivityDb( ptdata::PTrackPreferencesData::instance()->dbPath().toStdString() ) );
+
+  mUi->mActivityListWidget->populateFromActivityVector( mDb->queryAll() );
 }
 
 /*
