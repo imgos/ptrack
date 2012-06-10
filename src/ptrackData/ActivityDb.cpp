@@ -253,7 +253,9 @@ ActivityDb::Activity ActivityDb::rowToActivity( sqlite3_stmt* statement )
 
   activity.uniqueId = sqlite3_column_int( statement, 0 );
   activity.category = std::string( (const char*) sqlite3_column_text( statement, 1 ) );
-  activity.dateTime = QDateTime::fromString( (const char*) sqlite3_column_text( statement, 2 ) );
+  activity.dateTime = QDateTime::fromString(
+    (const char*) sqlite3_column_text( statement, 2 ),
+    Qt::ISODate );
 
   //activity.gpsRoute = sqlite3_column_blob( statement, 3 );
   //activity.gpsRoute
@@ -269,7 +271,7 @@ ActivityDb::Activity ActivityDb::rowToActivity( sqlite3_stmt* statement )
  */
 std::vector< ptdata::ActivityDb::Activity > ActivityDb::queryAll()
 {
-  const char* sql = "SELECT rowid, * FROM activity";
+  const char* sql = "SELECT rowid, * FROM activity ORDER BY dateTime ASC";
 
   sqlite3_stmt* statement;
 
