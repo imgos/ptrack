@@ -5,8 +5,14 @@
 #include <sqlite3.h>
 
 #include <iostream>
+#include <sstream>
 
 namespace ptdata {
+
+const int ActivityDb::kMajorVersionNumber = 0;
+const int ActivityDb::kMinorVersionNumber = 0;
+const int ActivityDb::kPatchVersionNumber = 0;
+const char* ActivityDb::kVersionDescription = "initial";
 
 /*
  * ActivityDb
@@ -29,6 +35,38 @@ ActivityDb::~ActivityDb()
 }
 
 /*
+ * version
+ */
+std::string ActivityDb::version()
+{
+  const char* q = "SELECT major, minor, patch, description FROM versioninfo " \
+                  "  ORDER BY major DESC, minor DESC, patch DESC LIMIT 1";
+
+  sqlite3_stmt* statement;
+
+  if( sqlite3_prepare_v2( mDb, q, -1, &statement, NULL ) != SQLITE_OK ) {
+    return "unavailable";
+  }
+
+  if( sqlite3_step( statement ) != SQLITE_ROW ) {
+    return "unavailable";
+  }
+
+  int major = sqlite3_column_int( statement, 0 );
+  int minor = sqlite3_column_int( statement, 1 );
+  int patch = sqlite3_column_int( statement, 2 );
+  const unsigned char* description = sqlite3_column_text( statement, 3 );
+
+  //stringstream versionStream;
+  //versionString << major << "." << minor << "." << patch
+  //  << " (" << (const char*)description << ")";
+
+  sqlite3_finalize( statement );
+
+  //return versionStream.str();
+}
+
+/*
  * updateDatabaseFile
  */
 bool ActivityDb::updateDatabaseFile( const std::string& fileName )
@@ -48,12 +86,40 @@ bool ActivityDb::updateDatabaseFile( const std::string& fileName )
     "    dateTime TEXT, " \
     "    gpsRoute BLOB, " \
     "    totalTime REAL, " \
-    "    totalDistance REAL )";
+    "    totalDistance REAL );" \
+    "CREATE TABLE IF NOT EXISTS " \
+    "  versioninfo ( major INTEGER, " \
+    "    minor INTEGER, " \
+    "    patch INTEGER, " \
+    "    description TEXT, " \
+    "    UNIQUE ( major, minor, patch ) ON CONFLICT REPLACE )";
 
   retVal = sqlite3_exec( mDb, createDbQuery, 0, 0, 0 );
 
   if( retVal != SQLITE_OK ) {
     std::cerr << "Failed to configure database." << std::endl;
+    return false;
+  }
+
+  const char* vInsert = "INSERT INTO versioninfo ( major, minor, patch, description ) " \
+                        "  VALUES ( ?, ?, ?, ? )";
+
+  sqlite3_stmt* statement;
+
+  if( sqlite3_prepare_v2( mDb, vInsert, -1, &statement, NULL ) != SQLITE_OK ) {
+    return false;
+  }
+
+  sqlite3_bind_int( statement, 1, kMajorVersionNumber );
+  sqlite3_bind_int( statement, 2, kMinorVersionNumber );
+  sqlite3_bind_int( statement, 3, kPatchVersionNumber );
+  sqlite3_bind_text( statement, 4, kVersionDescription, -1, SQLITE_STATIC );
+
+  if( sqlite3_step( statement ) != SQLITE_DONE ) {
+    return false;
+  }
+
+  if( sqlite3_finalize( statement ) != SQLITE_OK ) {
     return false;
   }
 

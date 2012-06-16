@@ -48,6 +48,8 @@ public:
   ActivityDb( const std::string& fileName );
   ~ActivityDb();
 
+  std::string version();
+
   bool updateDatabaseFile( const std::string& fileName );
 
   bool status() const;
@@ -75,6 +77,11 @@ public:
   std::vector< Activity > queryAll();
 
 private:
+  static const int kMajorVersionNumber;
+  static const int kMinorVersionNumber;
+  static const int kPatchVersionNumber;
+  static const char* kVersionDescription;
+
   std::string mFileName;
 
   sqlite3* mDb;
