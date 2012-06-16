@@ -37,7 +37,7 @@ ActivityDb::~ActivityDb()
 /*
  * version
  */
-std::string ActivityDb::version()
+void ActivityDb::version( int& major, int& minor, int& patch, std::string& description )
 {
   const char* q = "SELECT major, minor, patch, description FROM versioninfo " \
                   "  ORDER BY major DESC, minor DESC, patch DESC LIMIT 1";
@@ -45,25 +45,35 @@ std::string ActivityDb::version()
   sqlite3_stmt* statement;
 
   if( sqlite3_prepare_v2( mDb, q, -1, &statement, NULL ) != SQLITE_OK ) {
-    return "unavailable";
+    return;
   }
 
   if( sqlite3_step( statement ) != SQLITE_ROW ) {
-    return "unavailable";
+    return;
   }
 
-  int major = sqlite3_column_int( statement, 0 );
-  int minor = sqlite3_column_int( statement, 1 );
-  int patch = sqlite3_column_int( statement, 2 );
-  const unsigned char* description = sqlite3_column_text( statement, 3 );
-
-  //stringstream versionStream;
-  //versionString << major << "." << minor << "." << patch
-  //  << " (" << (const char*)description << ")";
+  major = sqlite3_column_int( statement, 0 );
+  minor = sqlite3_column_int( statement, 1 );
+  patch = sqlite3_column_int( statement, 2 );
+  description = std::string( (const char*)sqlite3_column_text( statement, 3 ) );
 
   sqlite3_finalize( statement );
+}
 
-  //return versionStream.str();
+/*
+ * version
+ */
+std::string ActivityDb::version()
+{
+  int major, minor, patch;
+  std::string description;
+
+  version( major, minor, patch, description );
+
+  std::stringstream versionStream;
+  versionStream << major << "." << minor << "." << patch << " (" << description << ")";
+
+  return versionStream.str();
 }
 
 /*

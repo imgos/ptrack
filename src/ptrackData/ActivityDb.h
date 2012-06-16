@@ -49,6 +49,7 @@ public:
   ~ActivityDb();
 
   std::string version();
+  void version( int& major, int& minor, int& patch, std::string& description );
 
   bool updateDatabaseFile( const std::string& fileName );
 
