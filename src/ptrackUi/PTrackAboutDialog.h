@@ -15,6 +15,10 @@ class PTUI_API PTrackAboutDialog : public QDialog
 
 public:
   PTrackAboutDialog( QWidget* parent = 0 );
+  PTrackAboutDialog( const QString& databaseVersion, QWidget* parent = 0 );
+
+protected:
+  void init( const QString& databaseVersion = "" );
 
 private:
   boost::scoped_ptr< Ui::PTrackAboutDialogBase > mUi;

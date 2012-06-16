@@ -51,7 +51,8 @@ void PTrackUi::closeEvent( QCloseEvent* e )
  */
 void PTrackUi::openAbout()
 {
-  boost::scoped_ptr< PTrackAboutDialog > about( new PTrackAboutDialog( this ) );
+  boost::scoped_ptr< PTrackAboutDialog > about(
+    new PTrackAboutDialog( QString::fromStdString( mDb->version() ), this ) );
   about->exec();
 }
 
