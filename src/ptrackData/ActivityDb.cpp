@@ -323,21 +323,21 @@ bool ActivityDb::insertActivity( const Activity& activity, long& newRowId )
 /*
  * rowToActivity
  */
-ActivityDb::Activity ActivityDb::rowToActivity( sqlite3_stmt* statement )
+boost::shared_ptr< ActivityDb::Activity > ActivityDb::rowToActivity( sqlite3_stmt* statement )
 {
-  Activity activity;
+  boost::shared_ptr< Activity > activity( new Activity );
 
-  activity.uniqueId = sqlite3_column_int( statement, 0 );
-  activity.category = std::string( (const char*) sqlite3_column_text( statement, 1 ) );
-  activity.dateTime = QDateTime::fromString(
+  activity->uniqueId = sqlite3_column_int( statement, 0 );
+  activity->category = std::string( (const char*) sqlite3_column_text( statement, 1 ) );
+  activity->dateTime = QDateTime::fromString(
     (const char*) sqlite3_column_text( statement, 2 ),
     Qt::ISODate );
 
-  //activity.gpsRoute = sqlite3_column_blob( statement, 3 );
-  //activity.gpsRoute
+  //activity->gpsRoute = sqlite3_column_blob( statement, 3 );
+  //activity->gpsRoute
 
-  activity.totalTime = sqlite3_column_int( statement, 4 );
-  activity.totalDistance = sqlite3_column_int( statement, 5 );
+  activity->totalTime = sqlite3_column_int( statement, 4 );
+  activity->totalDistance = sqlite3_column_int( statement, 5 );
 
   return activity;
 }
@@ -345,7 +345,7 @@ ActivityDb::Activity ActivityDb::rowToActivity( sqlite3_stmt* statement )
 /*
  * queryAll
  */
-std::vector< ptdata::ActivityDb::Activity > ActivityDb::queryAll()
+std::vector< boost::shared_ptr< ptdata::ActivityDb::Activity > > ActivityDb::queryAll()
 {
   const char* sql = "SELECT rowid, * FROM activity ORDER BY dateTime ASC";
 
@@ -353,7 +353,7 @@ std::vector< ptdata::ActivityDb::Activity > ActivityDb::queryAll()
 
   int retVal = sqlite3_prepare_v2( mDb, sql, -1, &statement, NULL );
 
-  std::vector< Activity > activityVector;
+  std::vector< boost::shared_ptr< Activity > > activityVector;
 
   while( 1 ) {
     int stepType = sqlite3_step( statement );

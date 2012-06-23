@@ -7,17 +7,19 @@
 
 #include <QListWidgetItem>
 
+#include <boost/shared_ptr.hpp>
+
 namespace ptui {
 
 class PTUI_API ActivityListWidgetItem : public QListWidgetItem
 {
 public:
-  ActivityListWidgetItem( ptdata::ActivityDb::Activity activity );
+  ActivityListWidgetItem( boost::shared_ptr< ptdata::ActivityDb::Activity > activity );
   ActivityListWidgetItem();
   virtual ~ActivityListWidgetItem();
 
 private:
-  ptdata::ActivityDb::Activity mActivity;
+  boost::shared_ptr< ptdata::ActivityDb::Activity > mActivity;
 };
 
 } // namespace ptui

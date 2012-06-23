@@ -7,6 +7,8 @@
 
 #include <QListWidget>
 
+#include <boost/shared_ptr.hpp>
+
 #include <vector>
 
 namespace ptui {
@@ -19,7 +21,8 @@ public:
   ActivityListWidget( QWidget* parent = 0 );
   virtual ~ActivityListWidget();
 
-  void populateFromActivityVector( std::vector< ptdata::ActivityDb::Activity > activities );
+  void populateFromActivityVector(
+    std::vector< boost::shared_ptr< ptdata::ActivityDb::Activity > > activities );
 
 };
 

@@ -5,10 +5,11 @@ namespace ptui {
 /*
  * ActivityListWidgetItem
  */
-ActivityListWidgetItem::ActivityListWidgetItem( ptdata::ActivityDb::Activity activity )
+ActivityListWidgetItem::ActivityListWidgetItem(
+  boost::shared_ptr< ptdata::ActivityDb::Activity > activity )
  : mActivity( activity )
 {
-  setText( QString( "Act: " ) + mActivity.dateTime.toString() );
+  setText( QString( "Act: " ) + mActivity->dateTime.toString() );
 }
 
 /*

@@ -12,4 +12,12 @@ ActivityFrame::ActivityFrame( QWidget* parent )
   mUi->setupUi( this );
 }
 
+/*
+ * displayActivity
+ */
+void ActivityFrame::displayActivity( boost::shared_ptr< ptdata::ActivityDb::Activity > activity )
+{
+
+}
+
 } // namespace ptui

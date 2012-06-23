@@ -5,6 +5,8 @@
 
 #include <QDateTime>
 
+#include <boost/shared_ptr.hpp>
+
 #include <string>
 #include <vector>
 
@@ -74,8 +76,8 @@ public:
     long& newRowId );
   bool insertActivity( const Activity& activity, long& newRowId );
 
-  Activity rowToActivity( sqlite3_stmt* statement );
-  std::vector< Activity > queryAll();
+  boost::shared_ptr< Activity > rowToActivity( sqlite3_stmt* statement );
+  std::vector< boost::shared_ptr< Activity > > queryAll();
 
 private:
   static const int kMajorVersionNumber;
