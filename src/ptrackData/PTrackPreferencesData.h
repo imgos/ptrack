@@ -25,6 +25,9 @@ public:
   QByteArray splitterState();
   void setSplitterState( QByteArray s );
 
+  QByteArray activitySplitterState();
+  void setActivitySplitterState( QByteArray s );
+
   QString dbPath();
   void setDbPath( QString path );
 
@@ -41,6 +44,7 @@ private:
   static QByteArray mWindowGeometry;
   static QByteArray mWindowState;
   static QByteArray mSplitterState;
+  static QByteArray mActivitySplitterState;
 
   static QString mDbPath;
 

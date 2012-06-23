@@ -27,6 +27,7 @@ PTrackUi::PTrackUi( QWidget* parent )
   restoreGeometry( ptdata::PTrackPreferencesData::instance()->windowGeometry() );
   restoreState( ptdata::PTrackPreferencesData::instance()->windowState() );
   mUi->mSplitter->restoreState( ptdata::PTrackPreferencesData::instance()->splitterState() );
+  mUi->mActivitySplitter->restoreState( ptdata::PTrackPreferencesData::instance()->activitySplitterState() );
 
   // load database
   mDb.reset( new ptdata::ActivityDb( ptdata::PTrackPreferencesData::instance()->dbPath().toStdString() ) );
@@ -43,6 +44,7 @@ void PTrackUi::closeEvent( QCloseEvent* e )
   ptdata::PTrackPreferencesData::instance()->setWindowGeometry( saveGeometry() );
   ptdata::PTrackPreferencesData::instance()->setWindowState( saveState() );
   ptdata::PTrackPreferencesData::instance()->setSplitterState( mUi->mSplitter->saveState() );
+  ptdata::PTrackPreferencesData::instance()->setActivitySplitterState( mUi->mActivitySplitter->saveState() );
   ptdata::PTrackPreferencesData::instance()->save();
 }
 
