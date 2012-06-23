@@ -1,6 +1,7 @@
 project( ptrackUi )
 
 set( headerFiles
+  ActivityFrame.h
   ActivityListWidget.h
   ActivityListWidgetItem.h
   MapPage.h
@@ -12,6 +13,7 @@ set( headerFiles
 )
 
 set( sourceFiles
+  ActivityFrame.cpp
   ActivityListWidget.cpp
   ActivityListWidgetItem.cpp
   MapPage.cpp
@@ -22,6 +24,7 @@ set( sourceFiles
 )
 
 set( uiFiles
+  ActivityFrameBase.ui
   PTrackAboutDialogBase.ui
   PTrackPreferencesDialogBase.ui
   PTrackUiBase.ui

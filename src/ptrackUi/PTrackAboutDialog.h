@@ -21,7 +21,7 @@ protected:
   void init( const QString& databaseVersion = "" );
 
 private:
-  boost::scoped_ptr< Ui::PTrackAboutDialogBase > mUi;
+  boost::scoped_ptr< ::Ui::PTrackAboutDialogBase > mUi;
 };
 
 } // namespace ptui

@@ -22,7 +22,7 @@ class PTUI_API PTrackUi : public QMainWindow
 public:
   PTrackUi( QWidget* parent = 0 );
 
-  void closeEvent( QCloseEvent* e );
+  virtual void closeEvent( QCloseEvent* e );
 
 protected Q_SLOTS:
   void openAbout();
@@ -30,7 +30,7 @@ protected Q_SLOTS:
   void handlePrefsChanged();
 
 private:
-  boost::scoped_ptr< Ui::PTrackUiBase > mUi;
+  boost::scoped_ptr< ::Ui::PTrackUiBase > mUi;
 
   boost::shared_ptr< ptdata::ActivityDb > mDb;
 };

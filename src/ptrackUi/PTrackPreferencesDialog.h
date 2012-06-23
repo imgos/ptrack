@@ -25,7 +25,7 @@ Q_SIGNALS:
   void prefsChanged();
 
 private:
-  boost::scoped_ptr< Ui::PTrackPreferencesDialogBase > mUi;
+  boost::scoped_ptr< ::Ui::PTrackPreferencesDialogBase > mUi;
 };
 
 } // namespace ptui
