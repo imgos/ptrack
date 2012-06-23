@@ -64,6 +64,9 @@
          <height>0</height>
         </size>
        </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
     </layout>
@@ -97,6 +100,9 @@
          <width>120</width>
          <height>0</height>
         </size>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -132,8 +138,11 @@
          <height>0</height>
         </size>
        </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
        <property name="displayFormat">
-        <string>hh:mm:ss</string>
+        <string>hh:mm:ss.zzz</string>
        </property>
       </widget>
      </item>

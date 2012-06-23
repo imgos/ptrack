@@ -24,4 +24,12 @@ ActivityListWidgetItem::ActivityListWidgetItem()
 ActivityListWidgetItem::~ActivityListWidgetItem()
 {}
 
+/*
+ * activity
+ */
+boost::shared_ptr< ptdata::ActivityDb::Activity > ActivityListWidgetItem::activity()
+{
+  return mActivity;
+}
+
 } // namespace ptui

@@ -5,6 +5,8 @@
 
 #include <ptrackUi/ui_ActivityFrameBase.h>
 
+#include <ptrackUi/ActivityListWidgetItem.h>
+
 #include <ptrackData/ActivityDb.h>
 
 #include <boost/scoped_ptr.hpp>
@@ -19,7 +21,9 @@ class PTUI_API ActivityFrame : public QFrame
 public:
   ActivityFrame( QWidget* parent = 0 );
 
+public Q_SLOTS:
   void displayActivity( boost::shared_ptr< ptdata::ActivityDb::Activity > activity );
+  void displayActivity( QListWidgetItem* item, QListWidgetItem* oldItem );
 
 private:
   boost::scoped_ptr< ::Ui::ActivityFrameBase > mUi;

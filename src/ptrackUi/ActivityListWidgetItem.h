@@ -18,6 +18,8 @@ public:
   ActivityListWidgetItem();
   virtual ~ActivityListWidgetItem();
 
+  boost::shared_ptr< ptdata::ActivityDb::Activity > activity();
+
 private:
   boost::shared_ptr< ptdata::ActivityDb::Activity > mActivity;
 };

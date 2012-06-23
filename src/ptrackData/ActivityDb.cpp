@@ -336,8 +336,8 @@ boost::shared_ptr< ActivityDb::Activity > ActivityDb::rowToActivity( sqlite3_stm
   //activity->gpsRoute = sqlite3_column_blob( statement, 3 );
   //activity->gpsRoute
 
-  activity->totalTime = sqlite3_column_int( statement, 4 );
-  activity->totalDistance = sqlite3_column_int( statement, 5 );
+  activity->totalTime = sqlite3_column_double( statement, 4 );
+  activity->totalDistance = sqlite3_column_double( statement, 5 );
 
   return activity;
 }

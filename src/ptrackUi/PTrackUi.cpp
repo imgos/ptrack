@@ -23,6 +23,9 @@ PTrackUi::PTrackUi( QWidget* parent )
   connect( mUi->mAboutAction, SIGNAL( triggered() ), this, SLOT( openAbout() ) );
   connect( mUi->mPreferencesAction, SIGNAL( triggered() ), this, SLOT( openPreferences() ) );
 
+  connect( mUi->mActivityListWidget, SIGNAL( currentItemChanged( QListWidgetItem*, QListWidgetItem* ) ),
+    mUi->mActivityFrame, SLOT( displayActivity( QListWidgetItem*, QListWidgetItem* ) ) );
+
   // restore window size, position, state
   restoreGeometry( ptdata::PTrackPreferencesData::instance()->windowGeometry() );
   restoreState( ptdata::PTrackPreferencesData::instance()->windowState() );
