@@ -11,7 +11,7 @@ namespace ptdata {
 
 const int ActivityDb::kMajorVersionNumber = 0;
 const int ActivityDb::kMinorVersionNumber = 0;
-const int ActivityDb::kPatchVersionNumber = 0;
+const int ActivityDb::kPatchVersionNumber = 1;
 const char* ActivityDb::kVersionDescription = "initial";
 
 /*
@@ -92,7 +92,8 @@ bool ActivityDb::updateDatabaseFile( const std::string& fileName )
 
   const char* createDbQuery =
     "CREATE TABLE IF NOT EXISTS " \
-    "  activity ( category TEXT, " \
+    "  activity ( uniqueActivityId INTEGER PRIMARY KEY, " \
+    "    category TEXT, " \
     "    dateTime TEXT, " \
     "    gpsRoute BLOB, " \
     "    totalTime REAL, " \
@@ -347,7 +348,8 @@ boost::shared_ptr< ActivityDb::Activity > ActivityDb::rowToActivity( sqlite3_stm
  */
 std::vector< boost::shared_ptr< ptdata::ActivityDb::Activity > > ActivityDb::queryAll()
 {
-  const char* sql = "SELECT rowid, * FROM activity ORDER BY dateTime ASC";
+  const char* sql = "SELECT uniqueActivityId, category, dateTime, gpsRoute, totalTime, totalDistance " \
+                    "  FROM activity ORDER BY dateTime ASC";
 
   sqlite3_stmt* statement;
 
