@@ -24,6 +24,10 @@ public:
   void populateFromActivityVector(
     std::vector< boost::shared_ptr< ptdata::ActivityDb::Activity > > activities );
 
+protected Q_SLOTS:
+  void handleCustomContextMenu( const QPoint& pos );
+  void handleRemoveSelectedItem();
+
 };
 
 } // namespace ptui

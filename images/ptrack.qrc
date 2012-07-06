@@ -1,7 +1,9 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource>
   <file>about.png</file>
+  <file>add.png</file>
   <file>exit.png</file>
   <file>preferences.png</file>
+  <file>remove.png</file>
 </qresource>
 </RCC>
