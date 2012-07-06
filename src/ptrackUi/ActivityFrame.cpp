@@ -37,6 +37,13 @@ void ActivityFrame::displayActivity( QListWidgetItem* item, QListWidgetItem* old
 
   if( activityItem ) {
     displayActivity( activityItem->activity() );
+  } else {
+    // no selection, empty the display
+    mUi->mCategoryLineEdit->setText( "" );
+    mUi->mStartDateTimeEdit->setDateTime( QDateTime( QDate( 1900, 1, 1 ), QTime( 0, 0, 0, 0 ) ) );
+
+    mUi->mTotalDistanceSpinBox->setValue( 0. );
+    mUi->mTotalTimeEdit->setTime( QTime( 0, 0, 0, 0 ) );
   }
 }
 

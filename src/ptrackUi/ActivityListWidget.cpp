@@ -7,8 +7,6 @@
 
 #include <boost/scoped_ptr.hpp>
 
-#include <QDebug>
-
 namespace ptui {
 
 /*
