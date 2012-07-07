@@ -76,7 +76,14 @@
     </property>
     <addaction name="mAboutAction"/>
    </widget>
+   <widget class="QMenu" name="menuData">
+    <property name="title">
+     <string>Data</string>
+    </property>
+    <addaction name="mImportAction"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuData"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -105,6 +112,15 @@
    </property>
    <property name="text">
     <string>Exit</string>
+   </property>
+  </action>
+  <action name="mImportAction">
+   <property name="icon">
+    <iconset resource="../../images/ptrack.qrc">
+     <normaloff>:/add.png</normaloff>:/add.png</iconset>
+   </property>
+   <property name="text">
+    <string>Import</string>
    </property>
   </action>
  </widget>

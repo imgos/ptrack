@@ -4,6 +4,7 @@ set( headerFiles
   ActivityFrame.h
   ActivityListWidget.h
   ActivityListWidgetItem.h
+  ImportDialog.h
   MapPage.h
   MapWidget.h
   PTrackAboutDialog.h
@@ -16,6 +17,7 @@ set( sourceFiles
   ActivityFrame.cpp
   ActivityListWidget.cpp
   ActivityListWidgetItem.cpp
+  ImportDialog.cpp
   MapPage.cpp
   MapWidget.cpp
   PTrackAboutDialog.cpp
@@ -25,6 +27,7 @@ set( sourceFiles
 
 set( uiFiles
   ActivityFrameBase.ui
+  ImportDialogBase.ui
   PTrackAboutDialogBase.ui
   PTrackPreferencesDialogBase.ui
   PTrackUiBase.ui

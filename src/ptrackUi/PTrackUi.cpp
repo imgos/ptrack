@@ -2,6 +2,7 @@
 
 #include <ptrackUi/ui_PTrackUiBase.h>
 
+#include <ptrackUi/ImportDialog.h>
 #include <ptrackUi/PTrackAboutDialog.h>
 #include <ptrackUi/PTrackPreferencesDialog.h>
 
@@ -20,8 +21,9 @@ PTrackUi::PTrackUi( QWidget* parent )
 {
   mUi->setupUi( this );
 
-  connect( mUi->mAboutAction, SIGNAL( triggered() ), this, SLOT( openAbout() ) );
-  connect( mUi->mPreferencesAction, SIGNAL( triggered() ), this, SLOT( openPreferences() ) );
+  connect( mUi->mAboutAction, SIGNAL( triggered() ), this, SLOT( handleOpenAbout() ) );
+  connect( mUi->mPreferencesAction, SIGNAL( triggered() ), this, SLOT( handleOpenPreferences() ) );
+  connect( mUi->mImportAction, SIGNAL( triggered() ), this, SLOT( handleImportTriggered() ) );
 
   connect( mUi->mActivityListWidget, SIGNAL( currentItemChanged( QListWidgetItem*, QListWidgetItem* ) ),
     mUi->mActivityFrame, SLOT( displayActivity( QListWidgetItem*, QListWidgetItem* ) ) );
@@ -52,9 +54,9 @@ void PTrackUi::closeEvent( QCloseEvent* e )
 }
 
 /*
- * openAbout
+ * handleOpenAbout
  */
-void PTrackUi::openAbout()
+void PTrackUi::handleOpenAbout()
 {
   boost::scoped_ptr< PTrackAboutDialog > about(
     new PTrackAboutDialog( QString::fromStdString( mDb->version() ), this ) );
@@ -62,9 +64,9 @@ void PTrackUi::openAbout()
 }
 
 /*
- * openPreferences
+ * handleOpenPreferences
  */
-void PTrackUi::openPreferences()
+void PTrackUi::handleOpenPreferences()
 {
   boost::scoped_ptr< PTrackPreferencesDialog > prefs( new PTrackPreferencesDialog( this ) );
   connect( prefs.get(), SIGNAL( prefsChanged() ), this, SLOT( handlePrefsChanged() ) );
@@ -79,6 +81,15 @@ void PTrackUi::handlePrefsChanged()
 {
   // database file may have changed
   mDb->updateDatabaseFile( ptdata::PTrackPreferencesData::instance()->dbPath().toStdString() );
+}
+
+/*
+ * handleImportTriggered
+ */
+void PTrackUi::handleImportTriggered()
+{
+  boost::scoped_ptr< ImportDialog > importDialog( new ImportDialog( this ) );
+  importDialog->exec();
 }
 
 } //namespace ptui

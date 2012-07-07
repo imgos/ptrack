@@ -25,9 +25,10 @@ public:
   virtual void closeEvent( QCloseEvent* e );
 
 protected Q_SLOTS:
-  void openAbout();
-  void openPreferences();
+  void handleOpenAbout();
+  void handleOpenPreferences();
   void handlePrefsChanged();
+  void handleImportTriggered();
 
 private:
   boost::scoped_ptr< ::Ui::PTrackUiBase > mUi;
