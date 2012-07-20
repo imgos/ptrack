@@ -90,20 +90,37 @@ bool ActivityDb::updateDatabaseFile( const std::string& fileName )
     return false;
   }
 
+  // enable foreign key support
+  sqlite3_stmt* fkSupport;
+  retVal = sqlite3_prepare_v2( mDb, "PRAGMA foreign_keys = ON;", -1, &fkSupport, NULL );
+  if( retVal == SQLITE_OK ) {
+    retVal = sqlite3_step( fkSupport );
+    if( retVal != SQLITE_DONE ) {
+      // FK support failed, continue anyway
+      std::cerr << "Enabling sqlite fk support failed." << std::endl;
+    }
+  }
+  sqlite3_finalize( fkSupport );
+
   const char* createDbQuery =
-    "CREATE TABLE IF NOT EXISTS " \
-    "  activity ( uniqueActivityId INTEGER PRIMARY KEY, " \
-    "    category TEXT, " \
-    "    dateTime TEXT, " \
-    "    gpsRoute BLOB, " \
-    "    totalTime REAL, " \
+    "CREATE TABLE IF NOT EXISTS \n" \
+    "  activity ( uniqueActivityId INTEGER PRIMARY KEY, \n" \
+    "    category TEXT, \n" \
+    "    dateTime TEXT, \n" \
+    "    totalTime REAL, \n" \
     "    totalDistance REAL );" \
-    "CREATE TABLE IF NOT EXISTS " \
-    "  versioninfo ( major INTEGER, " \
-    "    minor INTEGER, " \
-    "    patch INTEGER, " \
-    "    description TEXT, " \
-    "    UNIQUE ( major, minor, patch ) ON CONFLICT REPLACE )";
+    "CREATE TABLE IF NOT EXISTS \n" \
+    "  gpsTracks ( activityId INTEGER NOT NULL, \n" \
+    "    gpsRoute BLOB, \n" \
+    "    FOREIGN KEY ( activityId ) REFERENCES activity ( uniqueActivityId ) );" \
+    "CREATE TABLE IF NOT EXISTS \n" \
+    "  versioninfo ( major INTEGER, \n" \
+    "    minor INTEGER, \n" \
+    "    patch INTEGER, \n" \
+    "    description TEXT, \n" \
+    "    UNIQUE ( major, minor, patch ) ON CONFLICT REPLACE );" \
+    "CREATE INDEX IF NOT EXISTS \n" \
+    "  activityIdx ON activity ( category, dateTime );";
 
   retVal = sqlite3_exec( mDb, createDbQuery, 0, 0, 0 );
 
@@ -333,12 +350,8 @@ boost::shared_ptr< ActivityDb::Activity > ActivityDb::rowToActivity( sqlite3_stm
   activity->dateTime = QDateTime::fromString(
     (const char*) sqlite3_column_text( statement, 2 ),
     Qt::ISODate );
-
-  //activity->gpsRoute = sqlite3_column_blob( statement, 3 );
-  //activity->gpsRoute
-
-  activity->totalTime = sqlite3_column_double( statement, 4 );
-  activity->totalDistance = sqlite3_column_double( statement, 5 );
+  activity->totalTime = sqlite3_column_double( statement, 3 );
+  activity->totalDistance = sqlite3_column_double( statement, 4 );
 
   return activity;
 }
@@ -348,8 +361,9 @@ boost::shared_ptr< ActivityDb::Activity > ActivityDb::rowToActivity( sqlite3_stm
  */
 std::vector< boost::shared_ptr< ptdata::ActivityDb::Activity > > ActivityDb::queryAll()
 {
-  const char* sql = "SELECT uniqueActivityId, category, dateTime, gpsRoute, totalTime, totalDistance " \
-                    "  FROM activity ORDER BY dateTime ASC";
+  const char* sql = "SELECT uniqueActivityId, category, dateTime, totalTime, totalDistance " \
+                    "  FROM activity " \
+                    "  ORDER BY dateTime ASC";
 
   sqlite3_stmt* statement;
 
@@ -357,18 +371,12 @@ std::vector< boost::shared_ptr< ptdata::ActivityDb::Activity > > ActivityDb::que
 
   std::vector< boost::shared_ptr< Activity > > activityVector;
 
-  while( 1 ) {
-    int stepType = sqlite3_step( statement );
+  int stepType = sqlite3_step( statement );
 
-    if( stepType == SQLITE_ROW ) {
-      // read this row into an Activity
-      activityVector.push_back( rowToActivity( statement ) );
-    } else if( stepType == SQLITE_DONE ) {
-      break;
-    } else {
-      std::cerr << "Error occurred stepping through DB rows." << std::endl;
-      break;
-    }
+  while( stepType == SQLITE_ROW ) {
+    // read this row into an Activity
+    activityVector.push_back( rowToActivity( statement ) );
+    stepType = sqlite3_step( statement );
   }
 
   if( sqlite3_finalize( statement ) != SQLITE_OK ) {
