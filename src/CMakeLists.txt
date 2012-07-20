@@ -50,6 +50,8 @@ add_executable( ${PROJECT_NAME} ${typeId} ${winIconResource}
   ${srcFiles}
 )
 
+set_property( TARGET ${PROJECT_NAME} PROPERTY DEBUG_POSTFIX d )
+
 target_link_libraries( ${PROJECT_NAME}
   ${QT_QTMAIN_LIBRARY}
   ${QT_LIBRARIES}
