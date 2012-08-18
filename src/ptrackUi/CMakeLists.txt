@@ -62,13 +62,13 @@ include_directories(
   ${SQLITE3_INCLUDE_DIR}
 )
 
-source_group( [*.h] FILES ${headerFiles} )
-source_group( [*.cpp] FILES ${sourceFiles} )
-source_group( [*.ui] FILES ${uiFiles} )
+source_group( [h] FILES ${headerFiles} )
+source_group( [cpp] FILES ${sourceFiles} )
+source_group( [ui] FILES ${uiFiles} )
 source_group( [resources] FILES ${resourceFiles} )
-source_group( Generated\\[*.h] FILES ${uicHeaders} )
-source_group( Generated\\[*.cxx] FILES ${mocSources} ${rccSource} )
-source_group( Generated\\[cmake] REGULAR_EXPRESSION moc_.*.rule$ )
+source_group( Generated\\[h] FILES ${uicHeaders} )
+source_group( Generated\\[cxx] FILES ${mocSources} ${rccSource} )
+source_group( Generated\\[rule] REGULAR_EXPRESSION moc_.*.rule$ )
 
 add_library( ${PROJECT_NAME} SHARED
   ${sourceFiles}
